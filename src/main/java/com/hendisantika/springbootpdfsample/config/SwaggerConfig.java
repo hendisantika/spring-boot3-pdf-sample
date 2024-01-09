@@ -66,4 +66,9 @@ public class SwaggerConfig implements WebMvcConfigurer {
         return groupedOpenApi("tags", "/v1/tags/**");
     }
 
+
+    @Bean
+    public GroupedOpenApi pdfApi() {
+        return groupedOpenApi("pdf", "/v1/pdf/**");
+    }
 }
