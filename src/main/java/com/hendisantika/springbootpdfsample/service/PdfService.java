@@ -97,4 +97,11 @@ public class PdfService {
                             table.addCell(header);
                         });
     }
+
+    private void addRows(PdfPTable table) {
+        table.addCell("row 1, col 1");
+        table.addCell("row 1, col 2");
+        table.addCell("row 1, col 3");
+    }
+
 }
