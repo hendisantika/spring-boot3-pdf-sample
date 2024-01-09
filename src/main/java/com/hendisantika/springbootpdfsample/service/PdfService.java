@@ -1,9 +1,11 @@
 package com.hendisantika.springbootpdfsample.service;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
@@ -104,4 +106,22 @@ public class PdfService {
         table.addCell("row 1, col 3");
     }
 
+    private void addCustomRows(PdfPTable table)
+            throws URISyntaxException, BadElementException, IOException {
+
+        Path path = Paths.get(ClassLoader.getSystemResource("logo.png").toURI());
+        Image img = Image.getInstance(path.toAbsolutePath().toString());
+        img.scalePercent(10);
+
+        PdfPCell imageCell = new PdfPCell(img);
+        table.addCell(imageCell);
+
+        PdfPCell horizontalAlignCell = new PdfPCell(new Phrase("row 2, col 2"));
+        horizontalAlignCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(horizontalAlignCell);
+
+        PdfPCell verticalAlignCell = new PdfPCell(new Phrase("row 2, col 3"));
+        verticalAlignCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+        table.addCell(verticalAlignCell);
+    }
 }
