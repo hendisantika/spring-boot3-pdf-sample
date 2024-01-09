@@ -1,6 +1,8 @@
 package com.hendisantika.springbootpdfsample.exception.base;
 
+import com.hendisantika.springbootpdfsample.exception.BadRequestException;
 import com.hendisantika.springbootpdfsample.exception.DataNotFoundException;
+import com.hendisantika.springbootpdfsample.exception.DuplicateException;
 import com.hendisantika.springbootpdfsample.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -44,4 +46,12 @@ public class BaseControllerAdvice {
         return new ErrorResponse(
                 String.valueOf(HttpStatus.NOT_FOUND.value()), ex.getMessage(), TIMESTAMP);
     }
+
+    @ExceptionHandler({BadRequestException.class, DuplicateException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleBadRequestException(Exception ex) {
+        return new ErrorResponse(
+                String.valueOf(HttpStatus.BAD_REQUEST.value()), ex.getMessage(), TIMESTAMP);
+    }
+
 }
