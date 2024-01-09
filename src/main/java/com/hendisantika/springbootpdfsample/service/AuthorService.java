@@ -1,8 +1,10 @@
 package com.hendisantika.springbootpdfsample.service;
 
 import com.hendisantika.springbootpdfsample.entity.Author;
+import com.hendisantika.springbootpdfsample.exception.BadRequestException;
 import com.hendisantika.springbootpdfsample.exception.DataNotFoundException;
 import com.hendisantika.springbootpdfsample.repository.AuthorRepository;
+import com.hendisantika.springbootpdfsample.util.Translator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,15 @@ public class AuthorService {
             return authorRepository.save(authorUpdate);
         } else {
             return authorRepository.save(authorRequest);
+        }
+    }
+
+    public void deleteById(Long id) {
+        Optional<Author> author = authorRepository.findById(id);
+        if (author.isPresent()) {
+            authorRepository.deleteById(id);
+        } else {
+            throw new BadRequestException(Translator.toLocale("DELETE_ERROR_PLEASE_CHECK_ID"));
         }
     }
 }
