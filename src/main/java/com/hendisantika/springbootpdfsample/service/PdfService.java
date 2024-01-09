@@ -7,6 +7,8 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 /**
  * Created by IntelliJ IDEA.
@@ -83,4 +86,15 @@ public class PdfService {
         pdfStamper.close();
     }
 
+    private void addTableHeader(PdfPTable table) {
+        Stream.of("column header 1", "column header 2", "column header 3")
+                .forEach(
+                        columnTitle -> {
+                            PdfPCell header = new PdfPCell();
+                            header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                            header.setBorderWidth(2);
+                            header.setPhrase(new Phrase(columnTitle));
+                            table.addCell(header);
+                        });
+    }
 }
