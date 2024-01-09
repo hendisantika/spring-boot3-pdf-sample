@@ -71,4 +71,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
     public GroupedOpenApi pdfApi() {
         return groupedOpenApi("pdf", "/v1/pdf/**");
     }
+
+    private GroupedOpenApi groupedOpenApi(String group, String... pathToMatch) {
+        return GroupedOpenApi.builder().group(group).pathsToMatch(pathToMatch).build();
+    }
 }
