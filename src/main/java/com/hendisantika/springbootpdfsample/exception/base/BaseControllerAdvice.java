@@ -4,6 +4,7 @@ import com.hendisantika.springbootpdfsample.exception.BadRequestException;
 import com.hendisantika.springbootpdfsample.exception.DataNotFoundException;
 import com.hendisantika.springbootpdfsample.exception.DuplicateException;
 import com.hendisantika.springbootpdfsample.exception.ErrorResponse;
+import com.hendisantika.springbootpdfsample.exception.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -54,4 +55,10 @@ public class BaseControllerAdvice {
                 String.valueOf(HttpStatus.BAD_REQUEST.value()), ex.getMessage(), TIMESTAMP);
     }
 
+    @ExceptionHandler({UnauthorizedException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorResponse handleUnauthorizedException(Exception ex) {
+        return new ErrorResponse(
+                String.valueOf(HttpStatus.UNAUTHORIZED.value()), ex.getMessage(), TIMESTAMP);
+    }
 }
