@@ -7,6 +7,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,21 @@ public class PdfService {
         Image img = Image.getInstance(path.toAbsolutePath().toString());
         document.add(img);
 
+        document.close();
+    }
+
+    public void writeTable() throws IOException, DocumentException, URISyntaxException {
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("iTextTable.pdf"));
+
+        document.open();
+
+        PdfPTable table = new PdfPTable(3);
+        addTableHeader(table);
+        addRows(table);
+        addCustomRows(table);
+
+        document.add(table);
         document.close();
     }
 }
