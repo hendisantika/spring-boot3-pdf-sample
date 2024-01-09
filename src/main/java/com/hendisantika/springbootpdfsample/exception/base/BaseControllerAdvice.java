@@ -5,6 +5,7 @@ import com.hendisantika.springbootpdfsample.exception.DataNotFoundException;
 import com.hendisantika.springbootpdfsample.exception.DuplicateException;
 import com.hendisantika.springbootpdfsample.exception.ErrorResponse;
 import com.hendisantika.springbootpdfsample.exception.ForbiddenException;
+import com.hendisantika.springbootpdfsample.exception.TooManyRequestsException;
 import com.hendisantika.springbootpdfsample.exception.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -68,5 +69,12 @@ public class BaseControllerAdvice {
     public ErrorResponse handleForbiddenException(Exception ex) {
         return new ErrorResponse(
                 String.valueOf(HttpStatus.FORBIDDEN.value()), ex.getMessage(), TIMESTAMP);
+    }
+
+    @ExceptionHandler({TooManyRequestsException.class})
+    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+    public ErrorResponse handleTooManyRequestsException(Exception ex) {
+        return new ErrorResponse(
+                String.valueOf(HttpStatus.TOO_MANY_REQUESTS.value()), ex.getMessage(), TIMESTAMP);
     }
 }
