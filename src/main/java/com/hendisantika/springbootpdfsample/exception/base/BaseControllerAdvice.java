@@ -1,5 +1,6 @@
 package com.hendisantika.springbootpdfsample.exception.base;
 
+import com.hendisantika.springbootpdfsample.exception.DataNotFoundException;
 import com.hendisantika.springbootpdfsample.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
