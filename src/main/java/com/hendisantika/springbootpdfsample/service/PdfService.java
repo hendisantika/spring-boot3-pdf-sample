@@ -6,12 +6,17 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Created by IntelliJ IDEA.
@@ -38,4 +43,15 @@ public class PdfService {
         document.close();
     }
 
+    public void writeImage() throws URISyntaxException, IOException, DocumentException {
+        Path path = Paths.get(ClassLoader.getSystemResource("logo.png").toURI());
+
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("iTextImageExample.pdf"));
+        document.open();
+        Image img = Image.getInstance(path.toAbsolutePath().toString());
+        document.add(img);
+
+        document.close();
+    }
 }
