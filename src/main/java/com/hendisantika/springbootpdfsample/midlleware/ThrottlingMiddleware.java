@@ -12,7 +12,12 @@ package com.hendisantika.springbootpdfsample.midlleware;
  */
 public class ThrottlingMiddleware extends Middleware {
 
-    private int requestPerMinute;
+    private final int requestPerMinute;
     private int request;
-    private long currentTime;
+    private final long currentTime;
+
+    public ThrottlingMiddleware(int requestPerMinute) {
+        this.requestPerMinute = requestPerMinute;
+        this.currentTime = System.currentTimeMillis();
+    }
 }
