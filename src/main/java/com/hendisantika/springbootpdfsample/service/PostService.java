@@ -3,6 +3,7 @@ package com.hendisantika.springbootpdfsample.service;
 import com.hendisantika.springbootpdfsample.dto.PostDTO;
 import com.hendisantika.springbootpdfsample.entity.Author;
 import com.hendisantika.springbootpdfsample.entity.Post;
+import com.hendisantika.springbootpdfsample.entity.Tag;
 import com.hendisantika.springbootpdfsample.exception.DataNotFoundException;
 import com.hendisantika.springbootpdfsample.repository.AuthorRepository;
 import com.hendisantika.springbootpdfsample.repository.PostRepository;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -78,5 +80,15 @@ public class PostService {
         } else {
             return postRepository.save(modelMapper.map(postRequest, Post.class));
         }
+    }
+
+    public List<Tag> getAllTagsByPostId(Long id) {
+        if (!postRepository.existsById(id)) {
+            throw new DataNotFoundException(
+                    MessageFormat.format("Post id {0} not found", String.valueOf(id)));
+        }
+
+        List<Tag> tagList = postRepository.findById(id).get().getTagList();
+        return tagList;
     }
 }
