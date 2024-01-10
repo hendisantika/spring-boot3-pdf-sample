@@ -1,8 +1,10 @@
 package com.hendisantika.springbootpdfsample.service;
 
 import com.hendisantika.springbootpdfsample.entity.Tag;
+import com.hendisantika.springbootpdfsample.exception.BadRequestException;
 import com.hendisantika.springbootpdfsample.exception.DataNotFoundException;
 import com.hendisantika.springbootpdfsample.repository.TagRepository;
+import com.hendisantika.springbootpdfsample.util.Translator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,15 @@ public class TagService {
             return tagRepository.save(tagUpdate);
         } else {
             return tagRepository.save(tagRequest);
+        }
+    }
+
+    public void deleteById(Long id) {
+        Optional<Tag> tag = tagRepository.findById(id);
+        if (tag.isPresent()) {
+            tagRepository.deleteById(id);
+        } else {
+            throw new BadRequestException(Translator.toLocale("DELETE_ERROR_PLEASE_CHECK_ID"));
         }
     }
 }
