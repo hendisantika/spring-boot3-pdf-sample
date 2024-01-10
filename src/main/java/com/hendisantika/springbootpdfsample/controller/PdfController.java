@@ -43,4 +43,12 @@ public class PdfController {
         service.writeImage();
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/v1/pdf/write-table")
+    public ResponseEntity<Void> writeTable()
+            throws DocumentException, IOException, URISyntaxException {
+
+        service.writeTable();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
