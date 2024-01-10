@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,5 +54,10 @@ public class PostController {
     public ResponseEntity<Post> createOrUpdate(@Valid @RequestBody PostDTO postDTO) {
         Post updated = service.createOrUpdate(postDTO);
         return new ResponseEntity<>(updated, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/v1/posts/{id}")
+    public void deleteById(@PathVariable("id") Long id) {
+        service.deleteById(id);
     }
 }
