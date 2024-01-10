@@ -34,30 +34,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final PostService service;
+    private final PostService postService;
 
     @GetMapping("/v1/posts")
     public ResponseEntity<Page<Post>> getAllPosts(
             Pageable pageable, @RequestParam(required = false) String title) {
 
-        Page<Post> list = service.getAllPosts(PageUtils.pageable(pageable), title);
+        Page<Post> list = postService.getAllPosts(PageUtils.pageable(pageable), title);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/v1/posts/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable("id") Long id) {
-        Post entity = service.getById(id);
+        Post entity = postService.getById(id);
         return new ResponseEntity<>(entity, HttpStatus.OK);
     }
 
     @PostMapping("/v1/posts")
     public ResponseEntity<Post> createOrUpdate(@Valid @RequestBody PostDTO postDTO) {
-        Post updated = service.createOrUpdate(postDTO);
+        Post updated = postService.createOrUpdate(postDTO);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
     @DeleteMapping("/v1/posts/{id}")
     public void deleteById(@PathVariable("id") Long id) {
-        service.deleteById(id);
+        postService.deleteById(id);
     }
 }
