@@ -1,9 +1,15 @@
 package com.hendisantika.springbootpdfsample.controller;
 
 import com.hendisantika.springbootpdfsample.service.PdfService;
+import com.itextpdf.text.DocumentException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.FileNotFoundException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,4 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class PdfController {
 
     private final PdfService service;
+
+    @GetMapping("/v1/pdf/write-text")
+    public ResponseEntity<Void> writeText() throws DocumentException, FileNotFoundException {
+        service.writeText();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
