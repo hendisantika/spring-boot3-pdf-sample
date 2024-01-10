@@ -28,11 +28,11 @@ import java.net.URISyntaxException;
 @RequiredArgsConstructor
 public class PdfController {
 
-    private final PdfService service;
+    private final PdfService pdfService;
 
     @GetMapping("/v1/pdf/write-text")
     public ResponseEntity<Void> writeText() throws DocumentException, FileNotFoundException {
-        service.writeText();
+        pdfService.writeText();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -40,7 +40,7 @@ public class PdfController {
     public ResponseEntity<Void> writeImage()
             throws DocumentException, URISyntaxException, IOException {
 
-        service.writeImage();
+        pdfService.writeImage();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -48,13 +48,13 @@ public class PdfController {
     public ResponseEntity<Void> writeTable()
             throws DocumentException, IOException, URISyntaxException {
 
-        service.writeTable();
+        pdfService.writeTable();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/v1/pdf/stamper")
     public ResponseEntity<Void> stamper() throws DocumentException, IOException {
-        service.stamper();
+        pdfService.stamper();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
