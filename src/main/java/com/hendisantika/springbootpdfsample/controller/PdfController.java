@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,6 +33,14 @@ public class PdfController {
     @GetMapping("/v1/pdf/write-text")
     public ResponseEntity<Void> writeText() throws DocumentException, FileNotFoundException {
         service.writeText();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/v1/pdf/write-image")
+    public ResponseEntity<Void> writeImage()
+            throws DocumentException, URISyntaxException, IOException {
+
+        service.writeImage();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
