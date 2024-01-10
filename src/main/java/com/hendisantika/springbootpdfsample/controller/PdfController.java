@@ -51,4 +51,10 @@ public class PdfController {
         service.writeTable();
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/v1/pdf/stamper")
+    public ResponseEntity<Void> stamper() throws DocumentException, IOException {
+        service.stamper();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
