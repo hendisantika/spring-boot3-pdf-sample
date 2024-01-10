@@ -4,10 +4,12 @@ import com.hendisantika.springbootpdfsample.dto.PostDTO;
 import com.hendisantika.springbootpdfsample.entity.Author;
 import com.hendisantika.springbootpdfsample.entity.Post;
 import com.hendisantika.springbootpdfsample.entity.Tag;
+import com.hendisantika.springbootpdfsample.exception.BadRequestException;
 import com.hendisantika.springbootpdfsample.exception.DataNotFoundException;
 import com.hendisantika.springbootpdfsample.repository.AuthorRepository;
 import com.hendisantika.springbootpdfsample.repository.PostRepository;
 import com.hendisantika.springbootpdfsample.repository.TagRepository;
+import com.hendisantika.springbootpdfsample.util.Translator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -118,5 +120,15 @@ public class PostService {
                         () ->
                                 new DataNotFoundException(
                                         MessageFormat.format("Post id {0} not found", String.valueOf(postId))));
+    }
+
+    public void deleteTagFromPost(Long postId, Long tagId) {
+        Optional<Post> post = postRepository.findById(postId);
+        if (post.isPresent()) {
+            post.get().removeTag(tagId);
+            postRepository.save(post.get());
+        } else {
+            throw new BadRequestException(Translator.toLocale("DELETE_ERROR_PLEASE_CHECK_ID"));
+        }
     }
 }
