@@ -26,3 +26,10 @@ Posts
 Tags
 
 ![Tags](img/tags.png "Tags")
+
+### Articles
+
+1. https://www.baeldung.com/java-pdf-creation
+2. https://www.baeldung.com/java-edit-existing-pdf
+3. https://www.baeldung.com/java-watermarks-with-itext
+4. https://refactoring.guru/design-patterns/chain-of-responsibility
